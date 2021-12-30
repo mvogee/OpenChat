@@ -7,8 +7,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>OpenChat</title>
-        <meta name="description" content="Chat openly with anybody and everybody.">
+        <title>Login</title>
+        <meta name="description" content="OpenChat login page">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
     </head>
@@ -23,18 +23,16 @@
                 <li id="signup-link"><a href="/signup">Sign Up</a></li>
             </ul>
         </nav>
-        <h1>Hello World</h1>
-        <div id="messageBoard" className="messageBoard">
-            <!-- will populate once connection to server is established/ -->
-        </div>
-        <form action="" id="postForm" class="postForm">
-            <label for="input">Send a message</label>
-            <input name="input" type="text" id="postInput" class="postInput" placeholder="Message" autocomplete="off"/>
-            
-            <button type="submit">post</button>
+        <h1>Create Account</h1>
+        <form action="" >
+            <label for="username-input">Username</label>
+            <input name="username-input" type="text" placeholder="username" autocomplete="off">
+            <label for="password-input">Password</label>
+            <input name="password-input" type="password" placeholder="Password" autocomplete="off">
+            <label for="email-input">Email<span> (optional)</span></label>
+            <input name="email-input" type="email" placeholder="you@email.com" autocomplete="off">
+            <button type="submit">Create Account</button>
         </form>
-        
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="../js/socketConnect.js" async defer></script>
+        <script src="" async defer></script>
     </body>
 </html>
