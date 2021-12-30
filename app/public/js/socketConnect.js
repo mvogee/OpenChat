@@ -30,9 +30,9 @@ function createPostElement(postObj) {
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (input.value != "") {
-        socket.emit("messageFromClient", {
-            user: "username",
-            message: input.value,
+        socket.emit("postFromClient", {
+            user: 1,
+            postContent: input.value,
             timestamp: new(Date)
         });
         input.value = "";
@@ -51,7 +51,7 @@ socket.on("messageFromServer", (data) => {
             window.scrollTo(0, document.body.scrollHeight);
         });
     }
-    else if (typeof data === "object"){
+    else if (typeof data === "object" && data.user){
         messageBoard.appendChild(createPostElement(data));
         window.scrollTo(0, document.body.scrollHeight);
     }
