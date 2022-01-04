@@ -24,15 +24,16 @@
             </ul>
         </nav>
         <h1>Create Account</h1>
-        <form action="" >
+        <form action="" class="signup-form">
+            <p class="errorInfoText"></p>
             <label for="username-input">Username</label>
-            <input name="username-input" type="text" placeholder="username" autocomplete="off">
+            <input id="username-input" name="username-input" type="text" placeholder="username" autocomplete="off" required="required">
             <label for="password-input">Password</label>
-            <input name="password-input" type="password" placeholder="Password" autocomplete="off">
+            <input id="password-input" name="password-input" type="password" placeholder="Password" autocomplete="off" required="required">
             <label for="email-input">Email<span> (optional)</span></label>
-            <input name="email-input" type="email" placeholder="you@email.com" autocomplete="off">
-            <button type="submit">Create Account</button>
+            <input id="email-input" name="email-input" type="email" placeholder="you@email.com" autocomplete="off">
+            <button id="submit-btn" type="submit">Create Account</button>
         </form>
-        <script src="" async defer></script>
+        <script src="../js/signup.js" async defer></script>
     </body>
 </html>

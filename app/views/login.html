@@ -24,13 +24,14 @@
             </ul>
         </nav>
         <h1>Log In</h1>
-        <form action="" >
+        <form action="" class="login-form">
+            <p class="errorInfoText"></p>
             <label for="username-input">Username</label>
-            <input name="username-input" type="text" placeholder="username" autocomplete="off">
+            <input name="username-input" id="username-input" type="text" placeholder="username" autocomplete="off">
             <label for="password-input">Password</label>
-            <input name="password-input" type="password" placeholder="Password" autocomplete="off">
-            <button type="submit">Log In</button>
+            <input name="password-input" id="password-input" type="password" placeholder="Password" autocomplete="off">
+            <button id="submit-btn" type="submit">Log In</button>
         </form>
-        <script src="" async defer></script>
+        <script src="../js/login.js" async defer></script>
     </body>
 </html>
