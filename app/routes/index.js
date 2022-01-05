@@ -1,9 +1,11 @@
 const path = require('path');
-require('dotenv').config({ path: path.resolve(path.join(__dirname, '../.env'))});
+require('dotenv').config({ path: path.resolve(__dirname, '../.env')});
 const mongoose = require('mongoose');
 const {connectmongoose, User, Post} = require(path.resolve(path.join(__dirname, '../db.js')));
 const bcrypt = require("bcrypt");
-const saltRounds =  10;
+const passport = require("passport");
+var LocalStrategy = require("passport-local").Strategy;
+let saltRounds = parseInt(process.env.SALT_ROUNDS, 10);
 var router = require('express').Router();
 
 connectmongoose(mongoose, process.env.DB_ROUTE);
@@ -55,8 +57,16 @@ router.post("/signup", (req, res) => {
                         console.log("error occurred adding user to database. ", err);
                     }
                     console.log(result);
-                    // here is where you would send back a user using
-                    res.json(result);
+                    req.login(result, (err) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            console.log("user has been logged in?");
+                        }
+                        res.json(result);
+                    });
+                    
                 });
             });
         }
