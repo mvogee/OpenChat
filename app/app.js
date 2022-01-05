@@ -1,11 +1,14 @@
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env')});
 const express = require('express');
+const session = require("express-session");
 const socketIO = require('socket.io');
 const http = require('http');
 const mongoose = require('mongoose');
 const {connectmongoose, User, Post} = require('./db.js');
 const bodyParser = require("body-parser");
+const passport = require("passport");
+const passportConfig = require("./passport_config.js");
 // ---- End Require Statements ----- //
 const app = express();
 const server = http.createServer(app);
@@ -16,7 +19,16 @@ const mainRouter = require('./routes/index');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-port = process.env.NODE_ENV === 'PROD' ? process.env.PORT : 3000;
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+port = process.env.NODE_ENV === 'PROD' ? parseInt(process.env.PORT, 10) : 3000;
 
 app.use('/', mainRouter);
 
@@ -24,7 +36,7 @@ console.log(process.env.PORT);
 
 console.log(process.env.DB_ROUTE);
 connectmongoose(mongoose, process.env.DB_ROUTE);
-
+passportConfig(passport);
 io.on("connection", (socket) => {
     console.log("new user connected");
     socket.emit('messageFromServer', [{
