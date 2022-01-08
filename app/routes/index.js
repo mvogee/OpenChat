@@ -18,15 +18,26 @@ router.get('/', (req, res) => {
 router.get("/login", (req, res) => {
     res.sendFile(path.resolve(__dirname + "./../views/login.html"));
 });
-router.post("/login", (req, res) => {
-    console.log("a login request has been received");
-    console.log(req.body.username);
-    console.log(req.body.password);
-    // query database here. if incorrect password or username send back false object
+router.get("/failedLogin", (req, res) => {
     res.json({
         status: false,
-        reason: "none of yo business"
+        message: "failed to log in wrong password or username"
     });
+});
+router.post("/login", passport.authenticate("local", {failureRedirect: "/failedLogin" ,failureMessage: true}), (req, res) => {
+    console.log("a login request has been received");
+    console.log(req.body.username + " has been logged in");
+    res.json({
+        status: true,
+        message: "logged in successfully"
+    });
+    // query database here. if incorrect password or username send back false object
+    
+
+    // res.json({
+    //     status: false,
+    //     reason: "none of yo business"
+    // });
 });
 
 router.get("/signup", (req, res) => {
@@ -35,7 +46,7 @@ router.get("/signup", (req, res) => {
 router.post("/signup", (req, res) => {
     console.log(req.body.username);
     console.log(req.body.password);
-    // query database here. if username found return false object
+    //if username found return false object
     User.find({userName: req.body.username}, (err, result) => {
         if (err) {
             console.log("an error occurred: ", err);
@@ -52,19 +63,19 @@ router.post("/signup", (req, res) => {
                     password: encrypted,
                     created: new Date,
                 }
-                User.create(userData, (err, result) => {
+                User.create(userData, (err, resObj) => {
                     if (err) {
                         console.log("error occurred adding user to database. ", err);
                     }
-                    console.log(result);
-                    req.login(result, (err) => {
+                    console.log(resObj);
+                    req.login(resObj, (err) => {
                         if (err) {
                             console.log(err);
                         }
                         else {
-                            console.log("user has been logged in?");
+                            console.log("user logged in", resObj);
                         }
-                        res.json(result);
+                        res.json(resObj);
                     });
                     
                 });
@@ -78,8 +89,11 @@ router.post("/signup", (req, res) => {
         }
         console.log(result);
     });
-    // otherwise enter new user into database. encrypt password and email.
-    // decryption here
-    
+
+});
+
+router.post("/logout", (req, res) => {
+    req.logOut();
+    res.redirect("/");
 });
 module.exports = router;

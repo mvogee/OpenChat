@@ -21,7 +21,8 @@ async function logIn(event) {
         body: JSON.stringify(data) // body data type must match "Content-Type" header
     });
     const body = await response.json();
-    if (response.body.status === false) {
+    console.log(body);
+    if (body.status !== true) {
         // if password does not match username server returns false
         // inform user that username or password are incorrect
         console.log("received status of false from server");
@@ -29,7 +30,9 @@ async function logIn(event) {
     }
     // redirect happens from back end
     else {
-        // if not redirected from back end display message saying you are logged in and can navigate to other pages.
+        // if not redirected from back end display message saying you are logged in and can navigate to other pages
+        console.log("you have been logged in");
+        window.location.replace("/");
     }
 }
 
