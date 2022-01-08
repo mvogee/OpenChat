@@ -34,6 +34,7 @@ module.exports = function(passport) {
                         return (done(null, false, {message: "Incorrect Password."}));
                     }
                     else {
+                        console.log(user);
                         return (done(null, user)); // not sure this has scope for user
                     }
                 });
