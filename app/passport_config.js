@@ -22,10 +22,15 @@ module.exports = function(passport) {
 
     passport.use(new LocalStrategy(
         (username, password, done) => {
-            User.findOne({username: username}, (err, user) => {
+            User.findOne({userName: username}, (err, user) => {
+                console.log("in localStrat findOne");
+                console.log(user);
+                console.log(password);
                 if (err) { return done(err)}
                 if (!user) { return done(null, false);}
                 bcrypt.compare(password, user.password, (compareErr, result) => {
+                    console.log("in bcrypt compare");
+                    console.log(result);
                     if (err) {
                         console.log("compareErr: ", compareErr);
                         return (done(null, false, {message: "An error occurred."}));

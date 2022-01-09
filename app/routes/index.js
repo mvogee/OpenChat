@@ -10,9 +10,19 @@ var router = require('express').Router();
 
 connectmongoose(mongoose, process.env.DB_ROUTE);
 
+function checkAuthenticated(req) {
+    return ({
+        authenticated: req.isAuthenticated(),
+        user: req.isAuthenticated() ? req.user : null
+    });
+}
+
+router.get("/checkAuthenticated", (req, res) => {
+    res.json(checkAuthenticated(req));
+});
+
 router.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname + "./../views/index.html"));
-    //res.send("hello");
 });
 
 router.get("/login", (req, res) => {
@@ -25,7 +35,6 @@ router.get("/failedLogin", (req, res) => {
     });
 });
 router.post("/login", passport.authenticate("local", {failureRedirect: "/failedLogin" ,failureMessage: true}), (req, res) => {
-    console.log("a login request has been received");
     console.log(req.body.username + " has been logged in");
     res.json({
         status: true,

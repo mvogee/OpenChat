@@ -22,10 +22,12 @@
                 <li id="login-link"><a href="/login">Log in</a></li>
                 <li id="signup-link"><a href="/signup">Sign Up</a></li>
             </ul>
+            <div id="logged-in-details" class="details" hidden>
             <p id="username-display">username</p>
             <form id="logout-btn" action="/logout" method="post">
                 <button type="submit">Log Out</button>
             </form>
+        </div>
         </nav>
         <h1>Log In</h1>
         <form action="" class="login-form">
@@ -37,5 +39,6 @@
             <button id="submit-btn" type="submit">Log In</button>
         </form>
         <script src="../js/login.js" async defer></script>
+        <script src="../js/common.js"></script>
     </body>
 </html>

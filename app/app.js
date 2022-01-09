@@ -23,7 +23,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: { secure: false }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -37,6 +37,7 @@ console.log(process.env.PORT);
 console.log(process.env.DB_ROUTE);
 connectmongoose(mongoose, process.env.DB_ROUTE);
 passportConfig(passport);
+
 io.on("connection", (socket) => {
     console.log("new user connected");
     socket.emit('messageFromServer', [{

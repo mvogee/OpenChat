@@ -32,7 +32,7 @@ async function signup(event) {
     else {
         // inform user their account has been created and they can navigate to the thread page.
         // this should send back a user to the client. Save as a cookie to be used for future authentication.
-        window.locaiton.replace("/");
+        window.location.replace("/");
     }
 }
 
