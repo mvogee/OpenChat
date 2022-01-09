@@ -2,6 +2,7 @@ var socket = io();
 let messageBoard = document.querySelector('#messageBoard');
 let form = document.querySelector('#postForm');
 let input = document.querySelector('#postInput');
+let btn = document.querySelector("#post-btn");
 
 function createPostElement(postObj) {
     // create wrapper div
@@ -26,17 +27,59 @@ function createPostElement(postObj) {
 
     return postDiv;
 }
-
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (input.value != "") {
-        socket.emit("postFromClient", {
-            user: 1,
-            postContent: input.value,
-            timestamp: new(Date)
-        });
-        input.value = "";
+async function isAuthenticated() {
+    const response = await fetch("/checkAuthenticated", {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'include', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    });
+    const body = await response.json();
+    console.log(body);
+    if (body.authenticated) {
+        return (body.user);
     }
+    else {
+        return (false);
+    }
+}
+
+async function greyOutMessageForm() {
+    if (!(await isAuthenticated())) {
+        input.toggleAttribute("disabled");
+        btn.toggleAttribute("disabled");
+        document.querySelector("#post-label").textContent = "Log in to post";
+    }
+}
+
+greyOutMessageForm();
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    let user = await isAuthenticated();
+    if (!user) {
+        console.log("unathenticated user tried to make a post");
+        // display message to user to log in to make posts.
+        alert("You must log in to be able to make posts");
+    }
+    else {
+        if (input.value != "") {
+            socket.emit("postFromClient", {
+                user: user.userName,
+                userId: user._id,
+                postContent: input.value,
+                timestamp: new(Date)
+            });
+            input.value = "";
+        }
+    }
+    
 });
 
 socket.on("connect", () => {

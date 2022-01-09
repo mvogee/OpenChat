@@ -33,10 +33,10 @@
             <!-- will populate once connection to server is established/ -->
         </div>
         <form action="" id="postForm" class="postForm">
-            <label for="input">Send a message</label>
+            <label id="post-label" for="input">Send a message</label>
             <input name="input" type="text" id="postInput" class="postInput" placeholder="Message" autocomplete="off"/>
             
-            <button type="submit">post</button>
+            <button id="post-btn" type="submit">post</button>
         </form>
         
         <script src="/socket.io/socket.io.js"></script>

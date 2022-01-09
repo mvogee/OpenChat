@@ -40,6 +40,7 @@ passportConfig(passport);
 
 io.on("connection", (socket) => {
     console.log("new user connected");
+    // ! placeholder data below!
     socket.emit('messageFromServer', [{
         user: "server@server",
         text: "connected to the server",
