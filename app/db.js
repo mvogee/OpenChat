@@ -17,7 +17,8 @@ const userSchema = new mongoose.Schema({
 });
 
 const postSchema = new mongoose.Schema({
-    user: Number, // references user _id
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}, // references user _id
+    userName: String,
     postContent: String,
     timeStamp: Date
 });

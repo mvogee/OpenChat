@@ -1,8 +1,5 @@
-var socket = io();
 let messageBoard = document.querySelector('#messageBoard');
-let form = document.querySelector('#postForm');
-let input = document.querySelector('#postInput');
-let btn = document.querySelector("#post-btn");
+// fetch data from the server no authentication
 
 function createPostElement(postObj) {
     // create wrapper div
@@ -15,7 +12,7 @@ function createPostElement(postObj) {
     // create body text element
     textNode = document.createElement("p");
     textNode.className = "post-body";
-    textNode.textContent = postObj.text;
+    textNode.textContent = postObj.postContent;
     // create timeStamp element
     timeStampNode = document.createElement("p");
     timeStampNode.className = "post-timestamp";
@@ -27,12 +24,14 @@ function createPostElement(postObj) {
 
     return postDiv;
 }
-async function isAuthenticated() {
-    const response = await fetch("/checkAuthenticated", {
+
+async function populateChat() {
+
+    const response = await fetch("/getRecentPosts", {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'include', // include, *same-origin, omit
+        credentials: 'same-origin', // include, *same-origin, omit
         headers: {
             'Content-Type': 'application/json'
             // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -40,54 +39,8 @@ async function isAuthenticated() {
         redirect: 'follow', // manual, *follow, error
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
-    const body = await response.json();
-    console.log(body);
-    if (body.authenticated) {
-        return (body.user);
-    }
-    else {
-        return (false);
-    }
-}
-
-async function greyOutMessageForm() {
-    if (!(await isAuthenticated())) {
-        input.toggleAttribute("disabled");
-        btn.toggleAttribute("disabled");
-        document.querySelector("#post-label").textContent = "Log in to post";
-    }
-}
-
-greyOutMessageForm();
-
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    let user = await isAuthenticated();
-    if (!user) {
-        console.log("unathenticated user tried to make a post");
-        // display message to user to log in to make posts.
-        alert("You must log in to be able to make posts");
-    }
-    else {
-        if (input.value != "") {
-            socket.emit("postFromClient", {
-                user: user,
-                userId: user._id,
-                postContent: input.value,
-                timestamp: new(Date)
-            });
-            input.value = "";
-        }
-    }
-    
-});
-
-socket.on("connect", () => {
-    console.log("connected to the server");
-});
-
-socket.on("messageFromServer", (data) => {
-    console.log("messageFromServer", data);
+    const data = await response.json();
+    console.log(data);
     if (Array.isArray(data)) {
         data.forEach((obj) => {
             messageBoard.appendChild(createPostElement(obj));
@@ -98,13 +51,6 @@ socket.on("messageFromServer", (data) => {
         messageBoard.appendChild(createPostElement(data));
         window.scrollTo(0, document.body.scrollHeight);
     }
-});
+}
 
-socket.emit("messageFromClient", {
-    to: "server@server",
-    text: "message to server from user"
-});
-
-socket.on("disconnect", () => {
-    console.log("Client disconnected from server");
-});
+populateChat();

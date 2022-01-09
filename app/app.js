@@ -67,7 +67,8 @@ io.on("connection", (socket) => {
     socket.on('postFromClient', (data) => {
         console.log('postFromClient', data);
         const postData = {
-            user: data.user,
+            userName: data.user.name,
+            user: data.userId,
             postContent: data.postContent,
             timeStamp: data.timestamp
         }

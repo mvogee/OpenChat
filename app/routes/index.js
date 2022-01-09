@@ -17,12 +17,31 @@ function checkAuthenticated(req) {
     });
 }
 
+router.get("/getRecentPosts", (req, res) => {
+    Post.find((err, result) => {
+        if (err) {
+            console.log(err);
+            res.send({error: err, message: "an error occured retrieving posts"});
+        }
+        else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+});
+
 router.get("/checkAuthenticated", (req, res) => {
     res.json(checkAuthenticated(req));
 });
 
 router.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname + "./../views/index.html"));
+    if (checkAuthenticated(req).authenticated) {
+        res.sendFile(path.resolve(__dirname + "./../views/index.html"));
+    }
+    else {
+        res.sendFile(path.resolve(__dirname + "./../views/noauthuser.html"));
+    }
+    
 });
 
 router.get("/login", (req, res) => {
