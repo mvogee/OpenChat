@@ -105,6 +105,7 @@ socket.emit("messageFromClient", {
     text: "Confirm connection from user to server."
 });
 
-socket.on("disconnect", () => {
+socket.on("disconnect", (reason) => {
+    console.log(reason);
     console.log("Client disconnected from server");
 });
