@@ -38,35 +38,51 @@ console.log(process.env.DB_ROUTE);
 connectmongoose(mongoose, process.env.DB_ROUTE);
 passportConfig(passport);
 
+const msgFromServer = "messageFromServer";
+const errFromServer = "errorFromServer";
+
 io.on("connection", (socket) => {
     console.log("new user connected");
-    socket.emit('messageFromServer', [{
-        user: "server@server",
-        text: "connected to the server",
-        timeStamp: new(Date)
-    },{
-        user: "peanut Mike",
-        text: "I like peanuts.",
-        timeStamp: new(Date)
-    },{
-        user: "Joey",
-        text: "hi my name is joey",
-        timeStamp: new(Date)
-    }]);
+    // ! placeholder data below!
+    // replace with data from database on first load
+    Post.find((err, result) => {
+        if (err) {
+            console.log(err);
+            socket.emit(errFromServer, {err: err, msg: "an error occurred while fetching the latest messages. Please try again."});
+        }
+        else {
+            console.log(result);
+            socket.emit(msgFromServer, result.length > 100 ? result.slice(-1, -101) : result);
+        }
+    });
+    // socket.emit(msgFromServer, [{
+    //     user: "ref 2",
+    //     userName: "server",
+    //     postContent: "connected to the server",
+    //     timeStamp: new(Date)
+    // },{
+    //     user: "ref 2",
+    //     userName: "peanut Mike",
+    //     postContent: "I like peanuts.",
+    //     timeStamp: new(Date)
+    // },{
+    //     user: "ref 3",
+    //     userName: "Joey",
+    //     postContent: "hi my name is joey",
+    //     timeStamp: new(Date)
+    // }])
+    // socket.emit('messageFromServer', );
 
+    // only exists to confirm connection to user.
     socket.on('messageFromClient', (data) => {
         console.log('messageFromClient', data);
-        socket.emit("messageFromServer", {
-            user: data.user,
-            text: data.message,
-            timeStamp: data.timestamp
-        });
     });
     
     socket.on('postFromClient', (data) => {
         console.log('postFromClient', data);
         const postData = {
-            user: data.user,
+            userName: data.user.userName,
+            user: data.userId,
             postContent: data.postContent,
             timeStamp: data.timestamp
         }
@@ -76,15 +92,18 @@ io.on("connection", (socket) => {
             }
             else {
                 console.log(post, "was saved");
-                Post.find((err, result) => {
-                    console.log(result);
-                });
+                // Post.find((err, result) => {
+                //     console.log(result);
+                // });
+                
+                socket.emit(msgFromServer, post);
+                // socket.emit("messageFromServer", {
+                //     user: post.user,
+                //     userName: post.userName,
+                //     text: post.postContent,
+                //     timeStamp: post.timestamp
+                // });
             }
-        });
-        socket.emit("messageFromServer", {
-            user: data.user,
-            text: data.postContent,
-            timeStamp: data.timestamp
         });
     });
 

@@ -10,16 +10,17 @@ async function connectmongoose(mongoose, route) {
 }
 
 const userSchema = new mongoose.Schema({
-    userName: String,
+    userName: {type: String, required: true},
     email: String,
-    password: String,
-    created: Date,
+    password: {type: String, required: true},
+    created: {type: Date, required: true}
 });
 
 const postSchema = new mongoose.Schema({
-    user: Number, // references user _id
-    postContent: String,
-    timeStamp: Date
+    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}, // references user _id
+    userName: {type: String, required: true},
+    postContent: {type: String, required: true},
+    timeStamp: {type: Date, required: true}
 });
 
 
