@@ -1,0 +1,38 @@
+
+nav {
+    z-index: 1;
+    background-color: var(--darkBlue);
+    display: flex;
+    flex-direction: row;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    margin-bottom: 10px;
+    border-bottom: solid 1px var(--orange)
+}
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 20px;
+}
+
+nav ul a, nav ul a:visited{
+    text-decoration: none;
+    color: var(--orange);
+    font-size: 21px;
+    font-weight: bold;
+}
+
+#logged-in-details {
+    margin: 10px;
+    position: absolute;
+    right: 25px;
+}
+

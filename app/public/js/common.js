@@ -2,6 +2,8 @@
 // if user is logged in display their username in the #username-display area
 let loggedInDisplayItms = document.querySelector("#logged-in-details");
 let usernameDisplay = document.querySelector("#username-display");
+let logInLink = document.querySelector("#login-link");
+let createAccLink = document.querySelector("#signup-link");
 
 // hit the server to see if the user is authenticated or not
 async function isAuthenticated() {
@@ -22,6 +24,9 @@ async function isAuthenticated() {
     if (body.authenticated) {
         usernameDisplay.textContent = body.user.userName;
         loggedInDisplayItms.toggleAttribute("hidden");
+        logInLink.toggleAttribute("hidden");
+        createAccLink.toggleAttribute("hidden");
+
     }
 }
 isAuthenticated();

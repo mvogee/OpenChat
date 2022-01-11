@@ -10,7 +10,9 @@
         <title>OpenChat</title>
         <meta name="description" content="Chat openly with anybody and everybody.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="./css/defaults.css">
+        <link rel="stylesheet" href="./css/desktop.css">
+        <link rel="stylesheet" href="./css/mobile.css">
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -27,10 +29,13 @@
                 <form id="logout-btn" action="/logout" method="post">
                     <button type="submit">Log Out</button>
                 </form>
+            </div>
         </nav>
-        <h1>OpenChat</h1>
-        <div id="messageBoard" className="messageBoard">
-            <!-- will populate once connection to server is established/ -->
+        <div class="siteTitle"><h1>OpenChat</h1></div>
+        <div class="content">
+            <div id="messageBoard" class="messageBoard">
+                <!-- will populate once connection to server is established/ -->
+            </div>
         </div>
         <form action="" id="postForm" class="postForm">
             <label id="post-label" for="input">Send a message</label>
@@ -38,7 +43,6 @@
             
             <button id="post-btn" type="submit">post</button>
         </form>
-        
         <script src="/socket.io/socket.io.js"></script>
         <script src="../js/socketConnect.js" async defer></script>
         <script src="../js/common.js"></script>
