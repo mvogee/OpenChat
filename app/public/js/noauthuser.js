@@ -8,7 +8,7 @@ function createPostElement(postObj) {
     // create username element
     userNameNode = document.createElement("h3");
     userNameNode.className = "post-username";
-    userNameNode.textContent = postObj.user
+    userNameNode.textContent = postObj.userName;
     // create body text element
     textNode = document.createElement("p");
     textNode.className = "post-body";

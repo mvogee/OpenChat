@@ -11,11 +11,11 @@ function createPostElement(postObj) {
     // create username element
     userNameNode = document.createElement("h3");
     userNameNode.className = "post-username";
-    userNameNode.textContent = postObj.user
+    userNameNode.textContent = postObj.userName;
     // create body text element
     textNode = document.createElement("p");
     textNode.className = "post-body";
-    textNode.textContent = postObj.text;
+    textNode.textContent = postObj.postContent;
     // create timeStamp element
     timeStampNode = document.createElement("p");
     timeStampNode.className = "post-timestamp";
@@ -91,18 +91,18 @@ socket.on("messageFromServer", (data) => {
     if (Array.isArray(data)) {
         data.forEach((obj) => {
             messageBoard.appendChild(createPostElement(obj));
-            window.scrollTo(0, document.body.scrollHeight);
         });
     }
     else if (typeof data === "object" && data.user){
         messageBoard.appendChild(createPostElement(data));
-        window.scrollTo(0, document.body.scrollHeight);
     }
+    window.scrollTo(0, document.body.scrollHeight);
 });
 
+// server no other purpose than to be an initial message to the server to confirm a connection.
 socket.emit("messageFromClient", {
     to: "server@server",
-    text: "message to server from user"
+    text: "Confirm connection from user to server."
 });
 
 socket.on("disconnect", () => {
