@@ -25,14 +25,16 @@ nav ul li {
 
 nav ul a, nav ul a:visited{
     text-decoration: none;
-    color: var(--orange);
+    color: var(--offWhite);
     font-size: 21px;
     font-weight: bold;
 }
 
 #logged-in-details {
+    display: flex;
+    align-items: center;
+    row-gap: 10px;
     margin: 10px;
     position: absolute;
     right: 25px;
 }
-

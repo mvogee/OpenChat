@@ -97,6 +97,7 @@ socket.on("messageFromServer", (data) => {
         messageBoard.appendChild(createPostElement(data));
     }
     window.scrollTo(0, document.body.scrollHeight);
+    messageBoard.scrollTo(0, messageBoard.scrollHeight);
 });
 
 // server no other purpose than to be an initial message to the server to confirm a connection.
