@@ -24,7 +24,7 @@
                 <li id="login-link"><a href="/login">Log in</a></li>
                 <li id="signup-link"><a href="/signup">Sign Up</a></li>
             </ul>
-            <div id="logged-in-details" class="details" hidden>
+            <div id="logged-in-details" class="details hidden">
                 <p id="username-display">username</p>
                 <form id="logout-btn" action="/logout" method="post">
                     <button type="submit">Log Out</button>
@@ -34,12 +34,18 @@
         <h1>Create Account</h1>
         <form action="" class="signup-form">
             <p class="errorInfoText"></p>
-            <label for="username-input">Username</label>
-            <input id="username-input" name="username-input" type="text" placeholder="username" autocomplete="off" required="required">
-            <label for="password-input">Password</label>
-            <input id="password-input" name="password-input" type="password" placeholder="Password" autocomplete="off" required="required">
-            <label for="email-input">Email<span> (optional)</span></label>
-            <input id="email-input" name="email-input" type="email" placeholder="you@email.com" autocomplete="off">
+            <div class="inputDiv userName">
+                <label for="username-input">Username</label>
+                <input id="username-input" name="username-input" type="text" placeholder="username" autocomplete="off" required="required">
+            </div>
+            <div class="inputDiv password">
+                <label for="password-input">Password</label>
+                <input id="password-input" name="password-input" type="password" placeholder="Password" autocomplete="off" required="required">
+            </div>
+            <div class="inputDiv email">
+                <label for="email-input">Email<span> (optional)</span></label>
+                <input id="email-input" name="email-input" type="email" placeholder="you@email.com" autocomplete="off">
+            </div>
             <button id="submit-btn" type="submit">Create Account</button>
         </form>
         <script src="../js/signup.js" async defer></script>

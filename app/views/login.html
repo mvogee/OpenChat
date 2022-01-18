@@ -24,7 +24,7 @@
                 <li id="login-link"><a href="/login">Log in</a></li>
                 <li id="signup-link"><a href="/signup">Sign Up</a></li>
             </ul>
-            <div id="logged-in-details" class="details" hidden>
+            <div id="logged-in-details" class="details hidden">
                 <p id="username-display">username</p>
                 <form id="logout-btn" action="/logout" method="post">
                     <button type="submit">Log Out</button>
@@ -34,10 +34,14 @@
         <h1>Log In</h1>
         <form action="" class="login-form">
             <p class="errorInfoText"></p>
-            <label for="username-input">Username</label>
-            <input name="username-input" id="username-input" type="text" placeholder="username" autocomplete="off">
-            <label for="password-input">Password</label>
-            <input name="password-input" id="password-input" type="password" placeholder="Password" autocomplete="off">
+            <div class="inputDiv userName">
+                <label for="username-input">Username</label>
+                <input name="username-input" id="username-input" type="text" placeholder="username" autocomplete="off">
+            </div>
+            <div class="inputDiv password">
+                <label for="password-input">Password</label>
+                <input name="password-input" id="password-input" type="password" placeholder="Password" autocomplete="off">
+            </div>
             <button id="submit-btn" type="submit">Log In</button>
         </form>
         <script src="../js/login.js" async defer></script>

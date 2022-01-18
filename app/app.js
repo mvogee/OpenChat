@@ -51,7 +51,7 @@ io.on("connection", (socket) => {
             socket.emit(errFromServer, {err: err, msg: "an error occurred while fetching the latest messages. Please try again."});
         }
         else {
-            console.log(result);
+            //console.log(result);
             socket.emit(msgFromServer, result.length > 100 ? result.slice(-1, -101) : result);
         }
     });
@@ -92,17 +92,9 @@ io.on("connection", (socket) => {
             }
             else {
                 console.log(post, "was saved");
-                // Post.find((err, result) => {
-                //     console.log(result);
-                // });
-                
                 socket.emit(msgFromServer, post);
-                // socket.emit("messageFromServer", {
-                //     user: post.user,
-                //     userName: post.userName,
-                //     text: post.postContent,
-                //     timeStamp: post.timestamp
-                // });
+                socket.broadcast.emit(msgFromServer, post);
+
             }
         });
     });
