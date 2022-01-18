@@ -55,23 +55,6 @@ io.on("connection", (socket) => {
             socket.emit(msgFromServer, result.length > 100 ? result.slice(-1, -101) : result);
         }
     });
-    // socket.emit(msgFromServer, [{
-    //     user: "ref 2",
-    //     userName: "server",
-    //     postContent: "connected to the server",
-    //     timeStamp: new(Date)
-    // },{
-    //     user: "ref 2",
-    //     userName: "peanut Mike",
-    //     postContent: "I like peanuts.",
-    //     timeStamp: new(Date)
-    // },{
-    //     user: "ref 3",
-    //     userName: "Joey",
-    //     postContent: "hi my name is joey",
-    //     timeStamp: new(Date)
-    // }])
-    // socket.emit('messageFromServer', );
 
     // only exists to confirm connection to user.
     socket.on('messageFromClient', (data) => {

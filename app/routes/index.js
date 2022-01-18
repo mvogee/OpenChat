@@ -120,6 +120,15 @@ router.post("/signup", (req, res) => {
 
 });
 
+router.get("/profile", (req, res) => {
+    if (checkAuthenticated(req).authenticated) {
+        res.sendFile(path.resolve(__dirname + "./../views/profile.html"));
+    }
+    else {
+        res.redirect("/");
+    }
+});
+
 router.post("/logout", (req, res) => {
     req.logOut();
     res.redirect("/");

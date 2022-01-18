@@ -62,9 +62,11 @@ p {
     border-radius: 5px;
 }
 
-#username-display {
+#username-display, #username-display a:visited {
+    color: var(--offWhite);
     font-size: 24px;
     margin: 5px 25px;
+    text-decoration: none;
 }
 
 #logout-btn button {
