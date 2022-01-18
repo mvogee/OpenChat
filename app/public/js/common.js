@@ -23,10 +23,9 @@ async function isAuthenticated() {
     console.log(body);
     if (body.authenticated) {
         usernameDisplay.textContent = body.user.userName;
-        loggedInDisplayItms.toggleAttribute("hidden");
-        logInLink.toggleAttribute("hidden");
-        createAccLink.toggleAttribute("hidden");
-
+        loggedInDisplayItms.classList.toggle("hidden");
+        logInLink.classList.toggle("hidden");
+        createAccLink.classList.toggle("hidden");
     }
 }
 isAuthenticated();

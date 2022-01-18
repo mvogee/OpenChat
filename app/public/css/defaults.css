@@ -15,6 +15,7 @@
 body {
     background-color: var(--offWhite);
     font-family: Arial, Helvetica, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    min-height: 100vh;
 }
 
 h1 {
@@ -32,6 +33,15 @@ p {
     font-weight: 300;
 }
 
+.hide, .hidden {
+    display: none;
+    visibility: hidden;
+}
+
+.errorInfoText {
+    color: var(--blackBlue);
+}
+
 .content {
     margin: 10px;
     border: solid 1px var(--blackBlue);
@@ -40,7 +50,7 @@ p {
 
 .messageBoard {
     overflow-y: scroll;
-    max-height: 500px;
+    max-height: 70vh;
     min-height: 300px;
 }
 
@@ -69,21 +79,67 @@ p {
 }
 
 #postInput {
-  width: 80vw;
+    width: 80vw;
 }
 #post-label {
-  display: block;
+    display: block;
 }
 #post-btn {
-  background-color: var(--orange);
-  border-radius: 5px;
-  border: none;
-  padding: 8px;
-  width: 10vw;
-  vertical-align: top;
+    background-color: var(--orange);
+    border-radius: 5px;
+    border: none;
+    padding: 8px;
+    width: 10vw;
+    vertical-align: top;
 }
 
 .infoText {
-  margin: 10px;
-  color: var(--blackBlue);
+    margin: 10px;
+    color: var(--blackBlue);
+}
+
+/* Login form */
+
+.login-form, .signup-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    row-gap: 22px;
+}
+
+.inputDiv {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.inputDiv label {
+    font-size: 24px;
+    color: var(--darkBlue);
+}
+.inputDiv input {
+    width : 275px;
+    height: 30px;
+    border: solid 1px var(--blue);
+    border-radius: 4px;
+    padding-left: 10px;
+}
+
+#submit-btn {
+    background-color: var(--orange);
+    width: 285px;
+    height: 30px;
+    border: solid 1px var(--darkBlue);
+    border-radius: 4px;
+    transition: 0.3s;
+    font-weight: bold;
+    color: var(--darkBlue);
+}
+
+#submit-btn:hover, #submit-btn:active {
+    background-color: var(--darkBlue);
+    color: var(--offWhite);
+    border: solid 1px var(--orange);
+    transition: 0.3s;
 }
