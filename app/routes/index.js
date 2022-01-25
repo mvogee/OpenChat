@@ -117,7 +117,6 @@ router.post("/signup", (req, res) => {
         }
         console.log(result);
     });
-
 });
 
 router.get("/profile", (req, res) => {
