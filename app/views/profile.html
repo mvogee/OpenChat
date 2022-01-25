@@ -33,23 +33,24 @@
         </nav>
         <div class="profile">
             <h1>Profile</h1>
-            <p class="profileInfo">userName: <span id="profileUsername">fill w/ js</span></p>
-            <div class="update-email">
-                <p class="profileInfo">email: <span id="profileEmail">fill w/ js</span></p>
+            <div class="profile-content">
+                <p class="profileInfo">userName: <span id="profileUsername">fill w/ js</span></p>
+                <div class="update-email">
+                    <p class="profileInfo">email: <span id="profileEmail">fill w/ js</span></p>
+                </div>
+                <div class="acc-creation-date">
+                    <p class="profileInfo">User since: <span id="profileCreated">fill w/ js</span></p>
+                </div>
+                <div class="update-password">
+                    <form action="/updatePassword">
+                        <p>change password:</p>
+                        <input type="text" placeholder="old password">
+                        <input type="text" placeholder="new password">
+                        <input type="text" placeholder="confirm new password">
+                        <button type="submit" submit-btn>Submit</button>
+                    </form>
+                </div>
             </div>
-            <div class="acc-creation-date">
-                <p class="profileInfo">User since: <span id="profileCreated">fill w/ js</span></p>
-            </div>
-            <div class="update-password">
-                <form action="">
-                    <p>change password:</p>
-                    <input type="text" placeholder="old password">
-                    <input type="text" placeholder="new password">
-                    <input type="text" placeholder="confirm new password">
-                    <button type="submit" submit-btn>Submit</button>
-                </form>
-            </div>
-
         </div>
         <script src="../js/common.js"></script>
         <script src="../js/profile.js"></script>

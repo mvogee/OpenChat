@@ -145,3 +145,22 @@ p {
     border: solid 1px var(--orange);
     transition: 0.3s;
 }
+
+.profile-content {
+    margin: 10px;
+}
+
+.profileInfo {
+    margin: 10px 0;
+}
+
+.update-password form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    max-width: 500px;
+}
+
+.profile p {
+    color: var(--blackBlue);
+}
