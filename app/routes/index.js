@@ -127,6 +127,20 @@ router.get("/profile", (req, res) => {
         res.redirect("/");
     }
 });
+router.post("/updatePassword", (req, res) => {
+    if (checkAuthenticated(req).authenticated) {
+        console.log("update password");
+        console.log(req.body);
+        // confirm given password is the same as the stored password.
+        // if is update the password.
+        // if not send back fail message 
+        res.redirect("/profile");
+    }
+    else {
+        res.redirect("/");
+    }
+});
+
 
 router.post("/logout", (req, res) => {
     req.logOut();

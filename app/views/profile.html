@@ -42,11 +42,11 @@
                     <p class="profileInfo">User since: <span id="profileCreated">fill w/ js</span></p>
                 </div>
                 <div class="update-password">
-                    <form action="/updatePassword">
+                    <form action="/updatePassword" method="POST" name="updatePWform">
                         <p>change password:</p>
-                        <input type="text" placeholder="old password">
-                        <input type="text" placeholder="new password">
-                        <input type="text" placeholder="confirm new password">
+                        <input type="text" placeholder="old password" name="oldPw">
+                        <input type="text" placeholder="new password" name="newPW">
+                        <input type="text" placeholder="confirm new password" name="confirmPW">
                         <button type="submit" submit-btn>Submit</button>
                     </form>
                 </div>
