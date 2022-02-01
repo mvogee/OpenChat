@@ -1,7 +1,7 @@
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env')});
 const mongoose = require('mongoose');
-const {connectmongoose, User, Post} = require(path.resolve(path.join(__dirname, '../db.js')));
+const {updateUserPw, connectmongoose, User, Post} = require(path.resolve(path.join(__dirname, '../db.js')));
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
@@ -128,13 +128,43 @@ router.get("/profile", (req, res) => {
     }
 });
 router.post("/updatePassword", (req, res) => {
-    if (checkAuthenticated(req).authenticated) {
+    let checkUser = checkAuthenticated(req);
+    if (checkUser.authenticated) {
         console.log("update password");
         console.log(req.body);
         // confirm given password is the same as the stored password.
-        // if is update the password.
-        // if not send back fail message 
-        res.redirect("/profile");
+        bcrypt.compare(req.body.oldPw, checkUser.user.password, function(err, result) {
+            let responseJson;
+            if (err) {
+                console.log("An error occured while comparing the passwords", err);
+                responseJson = {
+                    status: false,
+                    reason: err
+                }
+            }
+            if (result && (req.body.newPw === req.body.confirmPw)) {
+                // hash the password and pass it to mongoose to update.
+                bcrypt.hash(req.body.newPw, saltRounds, (err, encrypted) => {
+                    if (err) {
+                        console.log("an error occured encrypting the password\n", err);
+                    }
+                    updateUserPw(checkUser.user._id, encrypted);
+                })
+                console.log("updateding password");
+                // responseJson = {
+                //     status: true,
+                //     reason: "password updated."
+                // };
+            }
+            else {
+                console.log("Incorrect password or new password did not match");
+                // responseJson = {
+                //     status: false,
+                //     reason: "Incorrect password. or new password did not match."
+                // }
+            }
+            res.redirect("/profile");
+        });
     }
     else {
         res.redirect("/");

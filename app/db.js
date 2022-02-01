@@ -24,10 +24,28 @@ const postSchema = new mongoose.Schema({
 });
 
 
+
 const User = mongoose.model('user', userSchema);
 const Post = mongoose.model('post', postSchema);
 
+/**
+ * 
+ * @param {User.id} userId mongoose User object id attribute
+ * @param {String} newPw hashed text string for new password 
+ */
+function updateUserPw(userId, newPw) {
+    User.findByIdAndUpdate(userId, {password: newPw}, (err, result) => {
+        if (err) {
+            console.log("mongoose had an error updated the password.", err);
+        }
+        else {
+            console.log("password updated\n", result);
+        }
+    });
+}
+
 module.exports = {
+    updateUserPw,
     connectmongoose,
     User,
     Post
